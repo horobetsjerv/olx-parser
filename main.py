@@ -60,7 +60,7 @@ async def get_phone_from_ad(page, url):
 async def main():
     start_time = time.perf_counter()
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
+        browser = await p.chromium.launch(headless=True)
         context = await browser.new_context()
         page = await context.new_page()
 
