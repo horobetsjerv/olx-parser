@@ -20,7 +20,7 @@ async def get_ad_links(page):
 async def get_phone_from_ad(page, url):
     try:
         await page.goto(url)
-        await page.wait_for_selector('button[data-testid="show-phone"]', timeout=1500)
+        await page.wait_for_selector('button[data-testid="show-phone"]', timeout=6000)
 
         await page.click('button[data-testid="show-phone"]')
         await page.wait_for_timeout(1000)
