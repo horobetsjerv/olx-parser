@@ -20,7 +20,9 @@ async def get_ad_links(page):
 async def get_phone_from_ad(page, url):
     try:
         await page.goto(url)
-        await page.wait_for_selector('button[data-testid="show-phone"]', timeout=6000)
+        await page.wait_for_selector('button[data-testid="show-phone"]', timeout=5000)
+        await page.wait_for_timeout(1000)
+        await page.click('button[data-testid="show-phone"]')
 
         await page.click('button[data-testid="show-phone"]')
         await page.wait_for_timeout(1000)
@@ -58,7 +60,7 @@ async def get_phone_from_ad(page, url):
 async def main():
     start_time = time.perf_counter()
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
+        browser = await p.chromium.launch(headless=False, slow_mo=500)
         context = await browser.new_context()
         page = await context.new_page()
 
