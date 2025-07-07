@@ -7,7 +7,7 @@ SEARCH_URL = "https://www.olx.ua/uk/list/q-%D0%B2%D1%8B%D0%BA%D0%B0%D1%87%D0%BA%
 
 async def get_ad_links(page):
     await page.goto(SEARCH_URL)
-    await page.wait_for_selector('div[data-cy="l-card"] a[href^="/d/uk/obyavlenie/"]', timeout=10000)
+    await page.wait_for_selector('div[data-cy="l-card"] a[href^="/d/uk/obyavlenie/"]', timeout=5000)
 
     ad_links = await page.eval_on_selector_all(
         'div[data-cy="l-card"] a[href^="/d/uk/obyavlenie/"]',
@@ -20,7 +20,7 @@ async def get_ad_links(page):
 async def get_phone_from_ad(page, url):
     try:
         await page.goto(url)
-        await page.wait_for_selector('button[data-testid="show-phone"]', timeout=5000)
+        await page.wait_for_selector('button[data-testid="show-phone"]', timeout=4000)
         await page.wait_for_timeout(1000)
         await page.click('button[data-testid="show-phone"]')
 
@@ -60,7 +60,7 @@ async def get_phone_from_ad(page, url):
 async def main():
     start_time = time.perf_counter()
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False, slow_mo=500)
+        browser = await p.chromium.launch(headless=False)
         context = await browser.new_context()
         page = await context.new_page()
 
